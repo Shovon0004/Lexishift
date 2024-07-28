@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Read Aloud Feature</title>
+</head>
+<body>
+    <div id="content">
+        <!-- Your page content goes here -->
+        <p>Welcome to our website, designed to assist individuals with dyslexia in converting PDF documents into a more readable format. Start by uploading your PDF document. Customize the text by selecting a dyslexia-friendly font, adjusting the font size, line spacing, letter spacing, and choosing a comfortable text color.
+
+            After setting your preferences, click the convert button. Our AI will process the document and provide a suggestion on the outcome PDF to ensure it meets your needs. This personalized document will be tailored to your specific reading requirements, making it easier to read and understand the content.
+            
+            For assistance, our AI chatbot is available at the bottom right corner of the website. The chatbot can help with uploading files, customizing settings, or downloading your converted PDF. Once the conversion is complete, easily download your newly formatted PDF.
+            
+            Our goal is to make reading more accessible and enjoyable for individuals with dyslexia. Thank you for using our service.</p>
+    </div>
+    <button id="read-aloud-btn">&#128266;</button>
+
+    <script>
+        document.getElementById('read-aloud-btn').addEventListener('click', function() {
+    // Get the content to be read
+    var content = document.getElementById('content').innerText;
+
+    // Check if the browser supports the Web Speech API
+    if ('speechSynthesis' in window) {
+        var speech = new SpeechSynthesisUtterance(content);
+        
+        // Optionally, you can set properties like pitch, rate, and volume
+        speech.pitch = 1;
+        speech.rate = 1;
+        speech.volume = 1;
+
+        // Start speaking
+        window.speechSynthesis.speak(speech);
+    } else {
+        alert('Sorry, your browser does not support the Web Speech API.');
+    }
+});
+    
+    </script>
+</body>
+</html>
