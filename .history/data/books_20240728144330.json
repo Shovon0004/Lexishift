@@ -1,0 +1,22 @@
+[
+    {
+        "title": "Count Of Monte Cristo",
+        "thumbnail": "/static/books/thumbnail1.png",
+        "pdf": "/static/books/book1.pdf"
+    },
+    {
+        "title": "White Nights",
+        "thumbnail": "/static/books/wknjp.jpg",
+        "pdf": "/static/books/wkn.pdf"
+    },
+    {
+        "title": "Comedy of Errors",
+        "thumbnail": "/static/books/cmderr.png",
+        "pdf": "/static/books/cmderr.pdf"
+    },
+        {
+        "title": "Comedy of Errors",
+        "thumbnail": "/static/books/cmderr.png",
+        "pdf": "/static/books/cmderr.pdf"
+    },
+]

@@ -16,7 +16,7 @@
     },
         {
         "title": "Othello",
-        "thumbnail": "/static/books/othejp.jpg",
+        "thumbnail": "/static/books/othe.jpg",
         "pdf": "/static/books/othe.pdf"
     },
         {
@@ -28,7 +28,7 @@
         "title": "Cymbeline",
         "thumbnail": "/static/books/cymbjp.jpg",
         "pdf": "/static/books/Cmblne.pdf"
-    },
+    }, --
         {
         "title": "2 States",
         "thumbnail": "/static/books/2stjp.jpg",

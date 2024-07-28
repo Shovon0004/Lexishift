@@ -16,7 +16,7 @@
     },
         {
         "title": "Othello",
-        "thumbnail": "/static/books/othejp.jpg",
+        "thumbnail": "/static/books/othe.jpg",
         "pdf": "/static/books/othe.pdf"
     },
         {
@@ -36,7 +36,7 @@
     },
             {
         "title": "Half Girlfriend",
-        "thumbnail": "/static/books/hlgrjp.jpg",
-        "pdf": "/static/books/hlg.pdf"
+        "thumbnail": "/static/books/2stjp.jpg",
+        "pdf": "/static/books/2st.pdf"
     }
 ]

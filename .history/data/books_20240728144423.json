@@ -16,27 +16,22 @@
     },
         {
         "title": "Othello",
-        "thumbnail": "/static/books/othejp.jpg",
+        "thumbnail": "/static/books/othe.jpg",
         "pdf": "/static/books/othe.pdf"
     },
         {
-        "title": "Macbeth",
-        "thumbnail": "/static/books/macjp.jpg",
-        "pdf": "/static/books/mac.pdf"
+        "title": "",
+        "thumbnail": "/static/books/cmderr.png",
+        "pdf": "/static/books/cmderr.pdf"
     },
         {
-        "title": "Cymbeline",
-        "thumbnail": "/static/books/cymbjp.jpg",
-        "pdf": "/static/books/Cmblne.pdf"
+        "title": "Comedy of Errors",
+        "thumbnail": "/static/books/cmderr.png",
+        "pdf": "/static/books/cmderr.pdf"
     },
         {
-        "title": "2 States",
-        "thumbnail": "/static/books/2stjp.jpg",
-        "pdf": "/static/books/2st.pdf"
-    },
-            {
-        "title": "Half Girlfriend",
-        "thumbnail": "/static/books/hlgrjp.jpg",
-        "pdf": "/static/books/hlg.pdf"
+        "title": "Comedy of Errors",
+        "thumbnail": "/static/books/cmderr.png",
+        "pdf": "/static/books/cmderr.pdf"
     }
 ]
