@@ -1,0 +1,12 @@
+[
+    {
+        "title": "Book One",
+        "thumbnail": "/static/books/thumbnail1.png",
+        "pdf": "/static/books/book1.pdf"
+    },
+    {
+        "title": "Book Two",
+        "thumbnail": "/static/books/thumbnail2.jpg",
+        "pdf": "/static/books/book2.pdf"
+    }
+]

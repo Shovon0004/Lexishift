@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Library</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+h1 {
+    text-align: center;
+}
+.search-bar {
+    margin: 20px auto;
+    display: flex;
+    justify-content: center;
+}
+.search-bar input {
+    width: 300px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.book-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.book-item {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    width: 200px;
+    text-align: center;
+}
+.book-item img {
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid #ccc;
+}
+.book-item h3 {
+    font-size: 1.2em;
+    margin: 10px 0;
+}
+.book-item a {
+    display: block;
+    padding: 10px;
+    background-color: #28a745;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+}
+.book-item a:hover {
+    background-color: #218838;
+}
+
+    </style>
+</head>
+<body>
+<h1>Book Library</h1>
+    <input type="text" id="search-bar" placeholder="Search for books...">
+    <div id="book-container">
+        {% for book in books %}
+            <div class="book-card">
+                <img src="{{ url_for('main.serve_static', filename=book.thumbnail[8:]) }}" alt="{{ book.title }} Thumbnail">
+                <h2>{{ book.title }}</h2>
+                <a href="{{ url_for('main.serve_static', filename=book.pdf[8:]) }}" class="download-btn">Download PDF</a>
+            </div>
+        {% endfor %}
+    </div>
+    <script>
+        const searchBar = document.getElementById('search-bar');
+        searchBar.addEventListener('keyup', function() {
+            const query = searchBar.value.toLowerCase();
+            fetch(`/api/books?q=${query}`)
+                .then(response => response.json())
+                .then(data => {
+                    const bookContainer = document.getElementById('book-container');
+                    bookContainer.innerHTML = '';
+                    data.forEach(book => {
+                        const bookCard = document.createElement('div');
+                        bookCard.classList.add('book-card');
+                        bookCard.innerHTML = `
+                            <img src="${book.thumbnail}" alt="${book.title} Thumbnail">
+                            <h2>${book.title}</h2>
+                            <a href="${book.pdf}" class="download-btn">Download PDF</a>
+                        `;
+                        bookContainer.appendChild(bookCard);
+                    });
+                });
+        });
+    </script>
+</body>
+</html>

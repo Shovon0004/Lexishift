@@ -1,6 +1,7 @@
 import io
 import os
 import logging
+import json
 import pdfplumber
 from flask import Blueprint, render_template, request, send_file, jsonify, url_for, send_from_directory
 from reportlab.pdfgen import canvas
@@ -16,6 +17,12 @@ from .ml_model import train_model, predict_formatting
 logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 main = Blueprint('main', __name__)
+
+
+
+with open('data/books.json') as f:
+    books = json.load(f)
+
 
 @main.route('/')
 def index():
@@ -41,6 +48,17 @@ def terms():
 @main.route('/learn_more')
 def learn_more():
     return render_template('learn_more.html')
+
+
+@main.route('/api/books')
+def get_books():
+    search_query = request.args.get('q', '').lower()
+    if search_query:
+        filtered_books = [book for book in books if search_query in book['title'].lower()]
+    else:
+        filtered_books = books
+    return jsonify(filtered_books)
+
 
 @main.route('/ai_recommendations', methods=['POST'])
 def ai_recommendations():

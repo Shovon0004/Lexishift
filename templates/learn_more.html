@@ -3,70 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Read Aloud Feature</title>
+    <title>Book Library</title>
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px;
+}
+h1 {
+    text-align: center;
+}
+.search-bar {
+    margin: 20px auto;
+    display: flex;
+    justify-content: center;
+}
+.search-bar input {
+    width: 300px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+.book-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.book-item {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin: 10px;
+    width: 200px;
+    text-align: center;
+}
+.book-item img {
+    width: 100%;
+    height: auto;
+    border-bottom: 1px solid #ccc;
+}
+.book-item h3 {
+    font-size: 1.2em;
+    margin: 10px 0;
+}
+.book-item a {
+    display: block;
+    padding: 10px;
+    background-color: #28a745;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+}
+.book-item a:hover {
+    background-color: #218838;
+}
+
+    </style>
 </head>
 <body>
-    <h1 class="content1">
-        Instructions
-    </h1>
-    <div id="content" >
-        <!-- Your page content goes here -->
-        <button class="content0">Welcome to our website, designed to assist individuals with dyslexia in converting PDF documents into a more readable format. Start by uploading your PDF document. Customize the text by selecting a dyslexia-friendly font, adjusting the font size, line spacing, letter spacing, and choosing a comfortable text color.
-
-            After setting your preferences, click the convert button. Our AI will process the document and provide a suggestion on the outcome PDF to ensure it meets your needs. This personalized document will be tailored to your specific reading requirements, making it easier to read and understand the content.
-            
-            For assistance, our AI chatbot is available at the bottom right corner of the website. The chatbot can help with uploading files, customizing settings, or downloading your converted PDF. Once the conversion is complete, easily download your newly formatted PDF.
-            
-            Our goal is to make reading more accessible and enjoyable for individuals with dyslexia. Thank you for using our service.</button>
+    <div class="container">
+        <h1>Book Library</h1>
+        <div class="search-bar">
+            <input type="text" id="searchInput" placeholder="Search for books...">
+        </div>
+        <div class="book-list" id="bookList">
+            <!-- Books will be dynamically inserted here -->
+        </div>
     </div>
-    <button id="read-aloud-btn" class="button1">&#128266;</button>
-    <style>
-        
-        .button1{
-            margin-left: 300px;
-            width: 70px;
-            background-color: rgb(0, 0, 0);
-            border-radius: 20px;
-            cursor: pointer;
-        }
-        .content0{
-            font-weight: bold;
-            font-size: 20px;
-            font-family: Arial;
-            width: 875px;
-            height: 300px;
-            margin-left:20%;
-            margin-top: 0%;
-            background: none;
-            border:none;
-        }
-        .content1{
-            margin-top: 120px;
-            text-align: center;
-            font-size: 50px;
-            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-        }
-    </style>
+
     <script>
-        document.getElementById('read-aloud-btn').addEventListener('click', function() {
-    // Get the content to be read
-    var content = document.getElementById('content').innerText;
+        document.addEventListener('DOMContentLoaded', () => {
+            const bookList = document.getElementById('bookList');
+            const searchInput = document.getElementById('searchInput');
 
-    // Check if the browser supports the Web Speech API
-    if ('speechSynthesis' in window) {
-        var speech = new SpeechSynthesisUtterance(content);
-        
-        // Optionally, you can set properties like pitch, rate, and volume
-        speech.pitch = 1;
-        speech.rate = 1;
-        speech.volume = 1;
+            function fetchBooks(query = '') {
+                fetch(`/api/books?q=${query}`)
+                    .then(response => response.json())
+                    .then(books => {
+                        displayBooks(books);
+                    });
+            }
 
-        // Start speaking
-        window.speechSynthesis.speak(speech);
-    } else {
-        alert('Sorry, your browser does not support the Web Speech API.');
-    }
-});
+            function displayBooks(books) {
+                bookList.innerHTML = '';
+                books.forEach(book => {
+                    const bookItem = document.createElement('div');
+                    bookItem.className = 'book-item';
+                    bookItem.innerHTML = `
+                        <img src="${book.thumbnail}" alt="${book.title}">
+                        <h3>${book.title}</h3>
+                        <a href="${book.pdf}" download>Download PDF</a>
+                    `;
+                    bookList.appendChild(bookItem);
+                });
+            }
+
+            searchInput.addEventListener('input', () => {
+                const searchTerm = searchInput.value.toLowerCase();
+                fetchBooks(searchTerm);
+            });
+
+            // Initial fetch of books
+            fetchBooks();
+        });
     </script>
 </body>
 </html>
