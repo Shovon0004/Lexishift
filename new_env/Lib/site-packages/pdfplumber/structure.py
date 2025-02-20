@@ -285,11 +285,13 @@ class PDFStructTree(Findable):
             children = [obj["K"]]
         revision = obj.get("R")
         attributes = self._make_attributes(obj, revision)
-        element_id = decode_text(obj["ID"]) if "ID" in obj else None
-        title = decode_text(obj["T"]) if "T" in obj else None
-        lang = decode_text(obj["Lang"]) if "Lang" in obj else None
-        alt_text = decode_text(obj["Alt"]) if "Alt" in obj else None
-        actual_text = decode_text(obj["ActualText"]) if "ActualText" in obj else None
+        element_id = decode_text(resolve1(obj["ID"])) if "ID" in obj else None
+        title = decode_text(resolve1(obj["T"])) if "T" in obj else None
+        lang = decode_text(resolve1(obj["Lang"])) if "Lang" in obj else None
+        alt_text = decode_text(resolve1(obj["Alt"])) if "Alt" in obj else None
+        actual_text = (
+            decode_text(resolve1(obj["ActualText"])) if "ActualText" in obj else None
+        )
         element = PDFStructElement(
             type=obj_tag,
             id=element_id,

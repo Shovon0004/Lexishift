@@ -13,15 +13,17 @@ class Container(object):
     cached_properties = ["_rect_edges", "_curve_edges", "_edges", "_objects"]
 
     @property
-    def pages(self) -> Optional[List[Any]]:
-        ...  # pragma: nocover
+    def pages(self) -> Optional[List[Any]]:  # pragma: nocover
+        raise NotImplementedError
 
     @property
-    def objects(self) -> Dict[str, T_obj_list]:
-        ...  # pragma: nocover
+    def objects(self) -> Dict[str, T_obj_list]:  # pragma: nocover
+        raise NotImplementedError
 
-    def to_dict(self, object_types: Optional[List[str]] = None) -> Dict[str, Any]:
-        ...  # pragma: nocover
+    def to_dict(
+        self, object_types: Optional[List[str]] = None
+    ) -> Dict[str, Any]:  # pragma: nocover
+        raise NotImplementedError
 
     def flush_cache(self, properties: Optional[List[str]] = None) -> None:
         props = self.cached_properties if properties is None else properties

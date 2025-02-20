@@ -334,12 +334,17 @@ class PageImage:
         return self
 
     def debug_tablefinder(
-        self, tf: Optional[Union[TableFinder, TableSettings, T_table_settings]] = None
+        self,
+        table_settings: Optional[
+            Union[TableFinder, TableSettings, T_table_settings]
+        ] = None,
     ) -> "PageImage":
-        if isinstance(tf, TableFinder):
-            finder = tf
-        elif tf is None or isinstance(tf, (TableSettings, dict)):
-            finder = self.page.debug_tablefinder(tf)
+        if isinstance(table_settings, TableFinder):
+            finder = table_settings
+        elif table_settings is None or isinstance(
+            table_settings, (TableSettings, dict)
+        ):
+            finder = self.page.debug_tablefinder(table_settings)
         else:
             raise ValueError(
                 "Argument must be instance of TableFinder"

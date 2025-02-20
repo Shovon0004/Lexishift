@@ -37,7 +37,7 @@ def parse_args(args_raw: List[str]) -> argparse.Namespace:
         action="store_true",
     )
 
-    parser.add_argument("--format", choices=["csv", "json"], default="csv")
+    parser.add_argument("--format", choices=["csv", "json", "text"], default="csv")
 
     parser.add_argument("--types", nargs="+")
 
@@ -109,6 +109,9 @@ def main(args_raw: List[str] = sys.argv[1:]) -> None:
                 include_attrs=args.include_attrs,
                 exclude_attrs=args.exclude_attrs,
             )
+        elif args.format == "text":
+            for page in pdf.pages:
+                print(page.extract_text(layout=True))
         else:
             pdf.to_json(
                 sys.stdout,

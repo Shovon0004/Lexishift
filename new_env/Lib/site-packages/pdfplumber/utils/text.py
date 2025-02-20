@@ -680,12 +680,22 @@ class WordExtractor:
     def extract_wordmap(self, chars: T_obj_iter) -> WordMap:
         return WordMap(list(self.iter_extract_tuples(chars)))
 
-    def extract_words(self, chars: T_obj_list) -> T_obj_list:
-        return list(word for word, word_chars in self.iter_extract_tuples(chars))
+    def extract_words(
+        self, chars: T_obj_list, return_chars: bool = False
+    ) -> T_obj_list:
+        if return_chars:
+            return list(
+                {**word, "chars": word_chars}
+                for word, word_chars in self.iter_extract_tuples(chars)
+            )
+        else:
+            return list(word for word, word_chars in self.iter_extract_tuples(chars))
 
 
-def extract_words(chars: T_obj_list, **kwargs: Any) -> T_obj_list:
-    return WordExtractor(**kwargs).extract_words(chars)
+def extract_words(
+    chars: T_obj_list, return_chars: bool = False, **kwargs: Any
+) -> T_obj_list:
+    return WordExtractor(**kwargs).extract_words(chars, return_chars)
 
 
 TEXTMAP_KWARGS = inspect.signature(WordMap.to_textmap).parameters.keys()

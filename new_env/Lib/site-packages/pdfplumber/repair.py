@@ -2,13 +2,16 @@ import pathlib
 import shutil
 import subprocess
 from io import BufferedReader, BytesIO
-from typing import Optional, Union
+from typing import Literal, Optional, Union
+
+T_repair_setting = Literal["default", "prepress", "printer", "ebook", "screen"]
 
 
 def _repair(
     path_or_fp: Union[str, pathlib.Path, BufferedReader, BytesIO],
     password: Optional[str] = None,
     gs_path: Optional[Union[str, pathlib.Path]] = None,
+    setting: T_repair_setting = "default",
 ) -> BytesIO:
 
     executable = (
@@ -29,7 +32,7 @@ def _repair(
         "-o",
         "-",
         "-sDEVICE=pdfwrite",
-        "-dPDFSETTINGS=/prepress",
+        f"-dPDFSETTINGS=/{setting}",
     ]
 
     if password:
@@ -62,8 +65,9 @@ def repair(
     outfile: Optional[Union[str, pathlib.Path]] = None,
     password: Optional[str] = None,
     gs_path: Optional[Union[str, pathlib.Path]] = None,
+    setting: T_repair_setting = "default",
 ) -> Optional[BytesIO]:
-    repaired = _repair(path_or_fp, password, gs_path=gs_path)
+    repaired = _repair(path_or_fp, password, gs_path=gs_path, setting=setting)
     if outfile:
         with open(outfile, "wb") as f:
             f.write(repaired.read())

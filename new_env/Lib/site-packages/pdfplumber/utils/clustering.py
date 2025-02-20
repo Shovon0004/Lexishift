@@ -1,9 +1,9 @@
 import itertools
 from collections.abc import Hashable
 from operator import itemgetter
-from typing import Callable, Dict, Iterable, List, TypeVar, Union
+from typing import Any, Callable, Dict, Iterable, List, Tuple, TypeVar, Union
 
-from .._typing import T_num
+from .._typing import T_num, T_obj
 
 
 def cluster_list(xs: List[T_num], tolerance: T_num = 0) -> List[List[T_num]]:
@@ -36,15 +36,15 @@ def make_cluster_dict(values: Iterable[T_num], tolerance: T_num) -> Dict[T_num, 
     return dict(itertools.chain(*nested_tuples))
 
 
-R = TypeVar("R")
+Clusterable = TypeVar("Clusterable", T_obj, Tuple[Any, ...])
 
 
 def cluster_objects(
-    xs: List[R],
-    key_fn: Union[Hashable, Callable[[R], T_num]],
+    xs: List[Clusterable],
+    key_fn: Union[Hashable, Callable[[Clusterable], T_num]],
     tolerance: T_num,
     preserve_order: bool = False,
-) -> List[List[R]]:
+) -> List[List[Clusterable]]:
 
     if not callable(key_fn):
         key_fn = itemgetter(key_fn)

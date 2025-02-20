@@ -30,7 +30,8 @@ def obj_to_bbox(obj: T_obj) -> T_bbox:
     """
     Return the bounding box for an object.
     """
-    return bbox_getter(obj)
+    bbox: T_bbox = bbox_getter(obj)
+    return bbox
 
 
 def bbox_to_rect(bbox: T_bbox) -> Dict[str, T_num]:
